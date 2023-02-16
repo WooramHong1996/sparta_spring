@@ -28,7 +28,6 @@ public class BlogService {
 
     // 요구사항 1)  전체 게시글 목록 조회
     @Transactional(readOnly = true)
-
     public ResponseEntity<List<BlogDto.Response>> getBlogs() {
         List<Blog> blogList = blogRepository.findAllByOrderByCreatedAtDesc();
         List<BlogDto.Response> blogResponseDtoList = new ArrayList<>();
