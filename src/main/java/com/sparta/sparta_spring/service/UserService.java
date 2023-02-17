@@ -19,17 +19,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
+    private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
 //  private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
     // 요구사항 1) 회원가입 기능 (ver. Builder, ResponseEntity)
     @Transactional
-    public ResponseEntity<BlogDto.SendMessage> signup(SignupRequestDto signupRequestDto, BindingResult bindingResult) {
+    public ResponseEntity<BlogDto.SendMessage> signup(UserDto.SignupRequest signupRequestDto, BindingResult bindingResult) {
         // 1. SignupRequestDto 를 통해서 Client 에게 username 과 password 를 전달받고, User의 Role 지정.
         String username = signupRequestDto.getUsername();
         String password = signupRequestDto.getPassword();
         UserRoleEnum role = UserRoleEnum.USER;
+
 
         // 2. 입력한 username, password @Valid 검사를 통과 못한 경우.
         if (bindingResult.hasErrors()) {
@@ -52,6 +54,14 @@ public class UserService {
                             .build());
         }
 
+        //4. 사용자 role 확인
+        if (signupRequestDto.isAdmin()) {
+            if (!signupRequestDto.getAdminToken().equals(ADMIN_TOKEN)) {
+                throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
+            }
+            role = UserRoleEnum.ADMIN;
+        }
+
         // 4. 새로운 user 객체를 다시 만들어서 줌.
         User user = User.builder()
                 .username(username)
@@ -72,7 +82,7 @@ public class UserService {
 
     // 요구사항 2) 로그인 기능(ver. Builder, ResponseEntity)
     @Transactional
-    public ResponseEntity<BlogDto.SendMessage> login(LoginRequestDto loginRequestDto) {
+    public ResponseEntity<BlogDto.SendMessage> login(UserDto.LoginRequest loginRequestDto) {
         // 1. SignupRequestDto 를 통해서 Client 에게 username 과 password 를 전달받고, User의 Role 지정.
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();

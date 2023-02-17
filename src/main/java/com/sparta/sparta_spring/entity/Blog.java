@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // 1. JPA(Java Persistence API)
 // JPA는 데이터베이스와 자바 객체의 매핑을 위한 기술이다.
@@ -23,6 +25,10 @@ public class Blog extends Timestamped{
     @ManyToOne
     @JoinColumn (name = "username",nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "blog", cascade = CascadeType.REMOVE)
+    @Column (nullable = false)
+    private List<Comment> comment = new ArrayList<>();
 
     @Column(nullable = false)
     private String content;

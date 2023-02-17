@@ -24,14 +24,14 @@ public class UserController {
     // 요구사항1. 회원 가입
     @Validated
     @PostMapping("/signup")
-    public ResponseEntity<BlogDto.SendMessage> signup(@RequestBody @Valid SignupRequestDto signupRequestDto, BindingResult bindingResult) {
+    public ResponseEntity<BlogDto.SendMessage> signup(@RequestBody @Valid UserDto.SignupRequest signupRequestDto, BindingResult bindingResult) {
         return userService.signup(signupRequestDto, bindingResult);
     }
 
 
     // 요구사항2. 로그인
     @PostMapping("/login")
-    public ResponseEntity<BlogDto.SendMessage> login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<BlogDto.SendMessage> login(@RequestBody UserDto.LoginRequest loginRequestDto) {
         return userService.login(loginRequestDto);
     }
 }
