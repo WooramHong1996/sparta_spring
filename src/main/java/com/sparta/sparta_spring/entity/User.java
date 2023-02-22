@@ -31,7 +31,7 @@ public class User {
     private UserRoleEnum role;
 
     @Builder
-    public User(String username, String password, UserRoleEnum role) {
+    public  User(String username, String password, UserRoleEnum role) {
         this.username = username;
         this.password = password;
 //        this.email = email;

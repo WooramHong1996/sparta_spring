@@ -25,8 +25,8 @@ public class BlogController {
 
     // 요구사항2. 게시글 작성 API (POST)
     @PostMapping("/blogs")
-    public ResponseEntity<Object> createBlog(@RequestBody BlogDto.Request blogrequestDto, HttpServletRequest request) {
-        return blogService.createBlog(blogrequestDto, request);
+    public ResponseEntity<Object> createBlog(@RequestBody BlogDto.Request blogRequestDto, HttpServletRequest request) {
+        return blogService.createBlog(blogRequestDto, request);
     }
 
     // 요구사항3. 선택한 게시글 조회 API (GET)

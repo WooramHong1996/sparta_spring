@@ -10,7 +10,7 @@ public class UserDto {
 
     @Getter
     @Setter
-    public class SignupRequest {
+    public static class SignupRequest {
 
         @NotNull(message = "아이디는 필수 값입니다.")
         @Pattern(regexp = "^[a-z0-9]{4,10}")
@@ -25,7 +25,7 @@ public class UserDto {
 
     @Getter
     @Setter
-    public class LoginRequest {
+    public static class LoginRequest {
         private String username;
         private String password;
     }
