@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/blogs/{id}")
+@RequestMapping("/api/comment")
 public class CommentController {
     private final CommentService commentService;
 
@@ -25,8 +25,8 @@ public class CommentController {
 //        return commentService.getComment();
 //    }
 
-    // 요구사항2. 댓글 작성 API (POST)
-    @PostMapping("/comment")
+    // 요구사항1. 댓글 작성 API (POST)
+    @PostMapping("/{id}")
     public ResponseEntity<Object> createComment(@PathVariable Long id,@RequestBody CommentDto.Request commentRequestDto, HttpServletRequest request) {
         return commentService.createComment(id, commentRequestDto, request);
     }
@@ -39,14 +39,14 @@ public class CommentController {
 
 
     // 요구사항2. 선택한 댓글 수정 API (PUT)
-    @PutMapping("/comment")
-    public ResponseEntity<Object> updateComment(@PathVariable Long id, @RequestBody CommentDto.Request commentRequestDto, HttpServletRequest request) {
-        return commentService.updateComment(id, commentRequestDto, request);
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateComment(@PathVariable Long blogId, @PathVariable Long id, @RequestBody CommentDto.Request commentRequestDto, HttpServletRequest request) {
+        return commentService.updateComment(blogId, id, commentRequestDto, request);
     }
 
     // 요구사항3. 선택한 댓글 삭제 API (DEL)
-    @DeleteMapping("/comment")
-    public ResponseEntity<Object> deleteComment(@PathVariable Long id, HttpServletRequest request) {
-        return commentService.deleteComment(id, request);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteComment(@PathVariable Long blogId, @PathVariable Long id, HttpServletRequest request) {
+        return commentService.deleteComment(blogId, id, request);
     }
 }

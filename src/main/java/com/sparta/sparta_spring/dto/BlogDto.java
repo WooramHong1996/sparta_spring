@@ -45,6 +45,7 @@ public class BlogDto {
 //            this.author = blog.getAuthor();
             this.createdat = blog.getCreatedAt();
             this.modifiedat = blog.getModifiedAt();
+//            this.commentList = blog.getComment();
         }
 
         public Response(Blog blog, List<CommentDto.Response> commentList) {

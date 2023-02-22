@@ -1,7 +1,9 @@
 package com.sparta.sparta_spring.service;
 
 import com.sparta.sparta_spring.dto.BlogDto;
+import com.sparta.sparta_spring.dto.CommentDto;
 import com.sparta.sparta_spring.entity.Blog;
+import com.sparta.sparta_spring.entity.Comment;
 import com.sparta.sparta_spring.entity.User;
 import com.sparta.sparta_spring.jwt.JwtUtil;
 import com.sparta.sparta_spring.repository.BlogRepository;
@@ -32,8 +34,12 @@ public class BlogService {
         List<Blog> blogList = blogRepository.findAllByOrderByCreatedAtDesc();
         List<BlogDto.Response> blogResponseDtoList = new ArrayList<>();
         for (Blog blog : blogList) {
-            BlogDto.Response tmp = new BlogDto.Response(blog);
-            blogResponseDtoList.add(tmp);
+//            BlogDto.Response tmp = new BlogDto.Response(blog);
+            List<CommentDto.Response> commentList = new ArrayList<>();
+            for (Comment comment : blog.getComment()) {
+                commentList.add(new CommentDto.Response(comment));
+            }
+            blogResponseDtoList.add(new BlogDto.Response(blog, commentList));
         }
         return ResponseEntity.ok()
                 .body(blogResponseDtoList);
@@ -85,8 +91,13 @@ public class BlogService {
         Blog blog = blogRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당글이 없습니다.")
         );
+        //댓글 조회
+        List<CommentDto.Response> commentList = new ArrayList<>();
+        for (Comment comment : blog.getComment()) {
+            commentList.add(new CommentDto.Response(comment));
+        }
         return ResponseEntity.ok()
-                .body(new BlogDto.Response(blog));
+                .body(new BlogDto.Response(blog,commentList));
     }
 
     // 요구사항4. 선택한 게시글 수정
