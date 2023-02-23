@@ -121,19 +121,19 @@ public class CommentService {
 
 
 
-//    // 요구사항 3)  선택한 게시글 조회
-//    @Transactional(readOnly = true)
-//    public ResponseEntity<Object> getComment(Long id) {
-//        Comment comment = commentRepository.findById(id).orElseThrow(
-//                () -> new IllegalArgumentException("해당글이 없습니다.")
-//        );
-//        return ResponseEntity.ok()
-//                .body(new CommentDto.Response(comment));
-//    }
+    // 요구사항 3)  선택한 게시글 조회
+    @Transactional(readOnly = true)
+    public ResponseEntity<Object> getComment(Long id) {
+        Comment comment = commentRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당글이 없습니다.")
+        );
+        return ResponseEntity.ok()
+                .body(new CommentDto.Response(comment));
+    }
 
     // 요구사항2. 선택한 댓글 수정
     @Transactional
-    public ResponseEntity<Object> updateComment(Long blogId, Long id, CommentDto.Request commentRequestDto, HttpServletRequest request) {
+    public ResponseEntity<Object> updateComment(Long id, CommentDto.Request commentRequestDto, HttpServletRequest request) {
         // Request에서 Token 가져오기
         String token = jwtUtil.resolveToken(request);
         Claims claims;
@@ -178,7 +178,7 @@ public class CommentService {
 
     // 요구사항3. 선택한 댓글 삭제
     @Transactional
-    public ResponseEntity<Object> deleteComment(Long blogId, Long id, HttpServletRequest request) {
+    public ResponseEntity<Object> deleteComment(Long id, HttpServletRequest request) {
 
         // Request에서 Token 가져오기
         String token = jwtUtil.resolveToken(request);

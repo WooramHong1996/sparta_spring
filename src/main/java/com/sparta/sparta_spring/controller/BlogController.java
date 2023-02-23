@@ -11,7 +11,8 @@ import java.util.List;
 
 
 @RestController
-@RequiredArgsConstructor
+@RequiredArgsConstructor //원하는 인스턴스 변수(접근 제어자 뒤에 final이 붙으면 붙어있는 것을 만들어줌)가 포함된 생성자 생성
+//의존성 주입 방법 3가지 -
 @RequestMapping("/api")
 public class BlogController {
     private final BlogService blogService;
@@ -34,7 +35,6 @@ public class BlogController {
     public ResponseEntity<Object> getBlogs(@PathVariable Long id) {
         return blogService.getBlogs(id);
     }
-
 
     // 요구사항4. 선택한 게시글 수정 API (PUT)
     @PutMapping("/blogs/{id}")

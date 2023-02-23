@@ -30,7 +30,6 @@ public class UserService {
         // 1. SignupRequestDto 를 통해서 Client 에게 username 과 password 를 전달받고, User의 Role 지정.
         String username = signupRequestDto.getUsername();
         String password = signupRequestDto.getPassword();
-        UserRoleEnum role = UserRoleEnum.USER;
 
 
         // 2. 입력한 username, password @Valid 검사를 통과 못한 경우.
@@ -55,6 +54,7 @@ public class UserService {
         }
 
         //4. 사용자 role 확인
+        UserRoleEnum role = UserRoleEnum.USER;
         if (signupRequestDto.isAdmin()) {
             if (!signupRequestDto.getAdminToken().equals(ADMIN_TOKEN)) {
                 throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");

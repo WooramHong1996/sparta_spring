@@ -40,13 +40,13 @@ public class CommentController {
 
     // 요구사항2. 선택한 댓글 수정 API (PUT)
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateComment(@PathVariable Long blogId, @PathVariable Long id, @RequestBody CommentDto.Request commentRequestDto, HttpServletRequest request) {
-        return commentService.updateComment(blogId, id, commentRequestDto, request);
+    public ResponseEntity<Object> updateComment(@PathVariable Long id, @RequestBody CommentDto.Request commentRequestDto, HttpServletRequest request) {
+        return commentService.updateComment(id, commentRequestDto, request);
     }
 
     // 요구사항3. 선택한 댓글 삭제 API (DEL)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteComment(@PathVariable Long blogId, @PathVariable Long id, HttpServletRequest request) {
-        return commentService.deleteComment(blogId, id, request);
+    public ResponseEntity<Object> deleteComment(@PathVariable Long id, HttpServletRequest request) {
+        return commentService.deleteComment(id, request);
     }
 }

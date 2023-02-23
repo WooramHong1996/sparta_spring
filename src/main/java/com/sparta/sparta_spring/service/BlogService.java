@@ -68,7 +68,7 @@ public class BlogService {
             );
 
             // 요청받은 DTO 로 DB에 저장할 객체 만들기
-            Blog blog = blogRepository.saveAndFlush(Blog.builder()
+            Blog blog = blogRepository.saveAndFlush(Blog.builder()//saveAndFlush 공부
                     .blogRequestDto(blogRequestDto)
                     .user(user)
                     .build());
@@ -118,7 +118,7 @@ public class BlogService {
             }
 
             // 토큰에서 가져온 사용자 정보를 사용하여 DB 조회
-            Optional <User> user = userRepository.findByUsername(claims.getSubject());
+            Optional <User> user = userRepository.findByUsername(claims.getSubject());//orElseThrow는 모든 예외에서 예외처리
             if (user.isEmpty()) {
                 return responseException("사용자가 존재하지 않습니다.");
             }
